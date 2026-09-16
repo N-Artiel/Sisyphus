@@ -1,0 +1,124 @@
+.proj-back {
+  display: inline-flex;
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+  text-decoration: none;
+  transition: color 0.2s;
+  margin-bottom: 20px;
+}
+.proj-back:hover { color: var(--ember-bright); }
+
+.proj-intro { margin-bottom: 8px; }
+.proj-intro h1 { font-size: var(--fs-2xl); margin-bottom: 16px; }
+
+.proj-progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.proj-progress-track {
+  position: relative;
+  flex: 1;
+  max-width: 320px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: visible;
+}
+.proj-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--ember-dim), var(--ember-bright));
+  transition: width 0.6s var(--ease-settle);
+}
+.proj-progress-boulder {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 32% 28%, var(--ember-bright), var(--ember) 45%, var(--ember-dim) 78%, #4a3116 100%);
+  box-shadow: 0 3px 8px -2px rgba(0,0,0,0.6);
+  transition: left 0.6s var(--ease-settle);
+}
+.proj-progress span {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+.proj-new {
+  display: flex;
+  gap: 10px;
+  margin: 24px 0 8px;
+}
+.proj-new .field { flex: 1; }
+
+.proj-list {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.proj-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+}
+.proj-item .btn-icon {
+  opacity: 0;
+  transition: opacity 0.2s;
+  margin-left: auto;
+}
+.proj-item:hover .btn-icon,
+.proj-item:focus-within .btn-icon {
+  opacity: 1;
+}
+
+.proj-stone {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--text-faint);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s var(--ease-settle), border-color 0.3s, background 0.3s;
+}
+.proj-stone:hover { border-color: var(--ember-bright); }
+
+.proj-item.is-done .proj-stone {
+  border-color: var(--ember-dim);
+  background: radial-gradient(circle at 32% 28%, var(--ember-bright), var(--ember) 45%, var(--ember-dim) 78%, #4a3116 100%);
+  animation: settleStone 0.4s var(--ease-settle);
+}
+@keyframes settleStone {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.proj-item-title {
+  flex: 1;
+  font-size: var(--fs-base);
+  color: var(--text);
+  transition: color 0.3s, opacity 0.3s;
+}
+.proj-item.is-done .proj-item-title {
+  color: var(--text-faint);
+  text-decoration: line-through;
+  text-decoration-color: var(--text-faint);
+  opacity: 0.75;
+}
+
+@media (max-width: 640px) {
+  .proj-new { flex-direction: column; }
+}

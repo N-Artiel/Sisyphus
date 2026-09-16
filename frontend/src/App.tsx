@@ -3,11 +3,18 @@ import { useAuth } from "./auth-context";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProjectPage from "./pages/ProjectPage";
+import { BoulderLoader } from "./components/Boulder";
 
 function App() {
   const { user, loading } = useAuth();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div style={{ display: "flex", flex: 1, alignItems: "center", justifyContent: "center", minHeight: "100dvh" }}>
+        <BoulderLoader label="Finding your footing…" />
+      </div>
+    );
+  }
 
   return (
     <Routes>

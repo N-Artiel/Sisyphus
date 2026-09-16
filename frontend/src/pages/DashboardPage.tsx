@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiFetch } from "../api";
 import { supabase } from "../supabaseClient";
+import { BoulderLoader, Boulder } from "../components/Boulder";
+import "./DashboardPage.css";
 
 interface Project {
   id: string;
@@ -28,10 +30,6 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => {
-    // Fetching on mount and setting state here is intentional — a full
-    // data-fetching library would be the "correct" long-term fix for the
-    // race-condition edge cases this rule is really guarding against, but
-    // that's beyond this project's current scope.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     loadProjects();
   }, [loadProjects]);
@@ -54,33 +52,55 @@ export default function DashboardPage() {
   }
 
   return (
-    <div style={{ maxWidth: 480, margin: "60px auto", fontFamily: "sans-serif" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h1>Your projects</h1>
-        <button onClick={handleSignOut}>Sign out</button>
+    <div className="dash page">
+      <header className="dash-header rise-in">
+        <div className="dash-wordmark">
+          <span className="boulder" style={{ width: 18, height: 18 }} />
+          <span>Sisyphus</span>
+        </div>
+        <button className="btn btn-ghost" onClick={handleSignOut}>Sign out</button>
+      </header>
+
+      <div className="dash-intro rise-in" style={{ animationDelay: "0.05s" }}>
+        <h1>Your ascents</h1>
+        <p>Every mountain begins the same way — with a single stone.</p>
       </div>
 
-      <form onSubmit={handleCreate} style={{ display: "flex", gap: 8, margin: "16px 0" }}>
+      <form onSubmit={handleCreate} className="dash-new rise-in" style={{ animationDelay: "0.1s" }}>
         <input
+          className="field"
           type="text"
-          placeholder="New project name"
+          placeholder="Name a new ascent…"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          style={{ flex: 1 }}
         />
-        <button type="submit">Add</button>
+        <button type="submit" className="btn btn-primary">Begin</button>
       </form>
 
-      {error && <p style={{ color: "crimson" }}>{error}</p>}
+      {error && <p className="error-banner rise-in">{error}</p>}
+
       {loading ? (
-        <p>Loading...</p>
+        <BoulderLoader label="Finding your mountains…" />
       ) : projects.length === 0 ? (
-        <p>No projects yet — create one above.</p>
+        <div className="empty-state rise-in">
+          <Boulder size={32} />
+          <p>No ascents yet. Start one above — the climb only ever begins with a first push.</p>
+        </div>
       ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {projects.map((p) => (
-            <li key={p.id} style={{ padding: "8px 0", borderBottom: "1px solid #ddd" }}>
-              <Link to={`/projects/${p.id}`}>{p.name}</Link>
+        <ul className="dash-grid">
+          {projects.map((p, i) => (
+            <li
+              key={p.id}
+              className="dash-card card rise-in"
+              style={{ animationDelay: `${0.12 + i * 0.04}s` }}
+            >
+              <Link to={`/projects/${p.id}`}>
+                <span className="dash-card-peak" aria-hidden="true" />
+                <h3>{p.name}</h3>
+                <time className="dash-card-date">
+                  {new Date(p.created_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+                </time>
+              </Link>
             </li>
           ))}
         </ul>

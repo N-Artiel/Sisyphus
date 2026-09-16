@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { useParams, Link } from "react-router-dom";
 import { apiFetch } from "../api";
+import { BoulderLoader, Boulder } from "../components/Boulder";
+import "./ProjectPage.css";
 
 interface Task {
   id: string;
@@ -38,7 +40,6 @@ export default function ProjectPage() {
   }, [id]);
 
   useEffect(() => {
-    // Same intentional fetch-on-mount tradeoff as the dashboard page.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     load();
   }, [load]);
@@ -76,35 +77,76 @@ export default function ProjectPage() {
     }
   }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="page">
+        <BoulderLoader label="Retracing the path…" />
+      </div>
+    );
+  }
+
+  const done = tasks.filter((t) => t.is_done).length;
+  const pct = tasks.length ? Math.round((done / tasks.length) * 100) : 0;
 
   return (
-    <div style={{ maxWidth: 480, margin: "60px auto", fontFamily: "sans-serif" }}>
-      <Link to="/">&larr; Back to projects</Link>
-      <h1>{project ? project.name : "Project"}</h1>
+    <div className="page proj">
+      <Link to="/" className="proj-back rise-in">&larr; Back to ascents</Link>
 
-      <form onSubmit={handleAddTask} style={{ display: "flex", gap: 8, margin: "16px 0" }}>
+      <div className="proj-intro rise-in" style={{ animationDelay: "0.05s" }}>
+        <h1>{project ? project.name : "Project"}</h1>
+        {tasks.length > 0 && (
+          <div className="proj-progress">
+            <div className="proj-progress-track">
+              <div className="proj-progress-fill" style={{ width: `${pct}%` }} />
+              <div className="proj-progress-boulder" style={{ left: `${pct}%` }} />
+            </div>
+            <span>{done} of {tasks.length} stones placed</span>
+          </div>
+        )}
+      </div>
+
+      <form onSubmit={handleAddTask} className="proj-new rise-in" style={{ animationDelay: "0.1s" }}>
         <input
+          className="field"
           type="text"
-          placeholder="New task"
+          placeholder="Add a stone to carry up…"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          style={{ flex: 1 }}
         />
-        <button type="submit">Add</button>
+        <button type="submit" className="btn btn-primary">Add</button>
       </form>
 
-      {error && <p style={{ color: "crimson" }}>{error}</p>}
+      {error && <p className="error-banner rise-in">{error}</p>}
 
       {tasks.length === 0 ? (
-        <p>No tasks yet — add one above.</p>
+        <div className="empty-state rise-in">
+          <Boulder size={32} />
+          <p>No stones yet. Add the first one above.</p>
+        </div>
       ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {tasks.map((task) => (
-            <li key={task.id} style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 0", borderBottom: "1px solid #ddd" }}>
-              <input type="checkbox" checked={task.is_done} onChange={() => toggleDone(task)} />
-              <span style={{ flex: 1, textDecoration: task.is_done ? "line-through" : "none" }}>{task.title}</span>
-              <button onClick={() => handleDelete(task.id)}>Delete</button>
+        <ul className="proj-list">
+          {tasks.map((task, i) => (
+            <li
+              key={task.id}
+              className={`proj-item card rise-in ${task.is_done ? "is-done" : ""}`}
+              style={{ animationDelay: `${0.12 + i * 0.03}s` }}
+            >
+              <button
+                type="button"
+                className="proj-stone"
+                onClick={() => toggleDone(task)}
+                aria-label={task.is_done ? "Mark as not done" : "Mark as done"}
+                aria-pressed={task.is_done}
+              />
+              <span className="proj-item-title">{task.title}</span>
+              <button
+                type="button"
+                className="btn-icon"
+                onClick={() => handleDelete(task.id)}
+                aria-label="Delete task"
+              >
+                ✕
+              </button>
             </li>
           ))}
         </ul>

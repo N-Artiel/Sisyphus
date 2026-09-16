@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
+import "./LoginPage.css";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -31,35 +32,58 @@ export default function LoginPage() {
   }
 
   return (
-    <div style={{ maxWidth: 360, margin: "80px auto", fontFamily: "sans-serif" }}>
-      <h1>{mode === "signin" ? "Sign in" : "Create an account"}</h1>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          minLength={6}
-        />
-        {error && <p style={{ color: "crimson" }}>{error}</p>}
-        <button type="submit" disabled={loading}>
-          {loading ? "Please wait..." : mode === "signin" ? "Sign in" : "Sign up"}
-        </button>
-      </form>
-      <button
-        onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-        style={{ marginTop: 12, background: "none", border: "none", color: "#3454d1", cursor: "pointer" }}
-      >
-        {mode === "signin" ? "Need an account? Sign up" : "Already have an account? Sign in"}
-      </button>
+    <div className="login">
+      <div className="login-scene" aria-hidden="true">
+        <div className="login-sun" />
+        <div className="ridge ridge-3" />
+        <div className="ridge ridge-2" />
+        <div className="ridge ridge-1" />
+        <div className="login-boulder" />
+      </div>
+
+      <div className="login-content">
+        <div className="login-eyebrow rise-in">A TASK &amp; PROJECT TRACKER</div>
+        <h1 className="login-title rise-in" style={{ animationDelay: "0.08s" }}>Sisyphus</h1>
+        <p className="login-quote rise-in" style={{ animationDelay: "0.16s" }}>
+          "The struggle itself toward the heights is enough to fill a man's heart.
+          One must imagine Sisyphus happy."
+          <span>— Albert Camus, <em>The Myth of Sisyphus</em></span>
+        </p>
+
+        <form onSubmit={handleSubmit} className="login-card rise-in" style={{ animationDelay: "0.26s" }}>
+          <h2>{mode === "signin" ? "Begin the ascent" : "Start a new ascent"}</h2>
+          <input
+            className="field"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            autoComplete="email"
+          />
+          <input
+            className="field"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={6}
+            autoComplete={mode === "signin" ? "current-password" : "new-password"}
+          />
+          {error && <p className="error-banner">{error}</p>}
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? "One moment…" : mode === "signin" ? "Sign in" : "Create account"}
+          </button>
+          <button
+            type="button"
+            className="login-toggle"
+            onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setError(null); }}
+          >
+            {mode === "signin" ? "New here? Create an account" : "Already climbing? Sign in"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
