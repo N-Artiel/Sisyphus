@@ -22,4 +22,4 @@ app.use((err: unknown, _req: express.Request, res: express.Response, _next: expr
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`API listening on :${PORT}`));
+app.listen(Number(PORT), "0.0.0.0", () => console.log(`API listening on :${PORT}`));

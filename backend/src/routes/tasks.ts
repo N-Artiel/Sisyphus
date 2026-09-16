@@ -5,7 +5,11 @@ export const tasksRouter = Router();
 
 tasksRouter.get("/", async (req, res) => {
   const { project_id } = req.query;
-  let query = supabase.from("tasks").select("*").order("created_at", { ascending: false });
+  let query = supabase
+    .from("tasks")
+    .select("*")
+    .eq("user_id", req.user!.id)
+    .order("created_at", { ascending: false });
   if (project_id) query = query.eq("project_id", project_id as string);
   const { data, error } = await query;
   if (error) return res.status(500).json({ error: error.message });
@@ -13,13 +17,13 @@ tasksRouter.get("/", async (req, res) => {
 });
 
 tasksRouter.post("/", async (req, res) => {
-  const { project_id, user_id, title } = req.body;
-  if (!project_id || !user_id || !title) {
-    return res.status(400).json({ error: "project_id, user_id and title are required" });
+  const { project_id, title } = req.body;
+  if (!project_id || !title) {
+    return res.status(400).json({ error: "project_id and title are required" });
   }
   const { data, error } = await supabase
     .from("tasks")
-    .insert({ project_id, user_id, title })
+    .insert({ project_id, title, user_id: req.user!.id })
     .select()
     .single();
   if (error) return res.status(500).json({ error: error.message });
