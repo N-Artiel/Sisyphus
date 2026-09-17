@@ -14,7 +14,7 @@
   --text: #f4f1ea;
   --text-bright: #ffffff;
   --text-muted: #a39b8d;
-  --text-faint: #665f54;
+  --text-faint: #868178; /* brightened from #665f54 for WCAG AA (>=4.5:1) on --bg and --surface */
 
   --accent: #f4f1ea;
   --accent-bright: #ffffff;

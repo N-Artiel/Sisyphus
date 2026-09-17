@@ -74,7 +74,7 @@ export default function DashboardPage() {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <button type="submit" className="btn btn-primary">Begin</button>
+        <button type="submit" className="btn btn-primary" disabled={!name.trim()}>Begin</button>
       </form>
 
       {error && <p className="error-banner rise-in">{error}</p>}

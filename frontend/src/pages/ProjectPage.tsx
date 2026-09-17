@@ -113,7 +113,7 @@ export default function ProjectPage() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <button type="submit" className="btn btn-primary">Add</button>
+        <button type="submit" className="btn btn-primary" disabled={!title.trim()}>Add</button>
       </form>
 
       {error && <p className="error-banner rise-in">{error}</p>}

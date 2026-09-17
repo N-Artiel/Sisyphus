@@ -90,4 +90,4 @@ This repo includes `.claude/settings.json` and `.claude/hooks/guard-secrets.js`,
 
 ## Status
 
-Core functionality complete: auth, CRUD for projects/tasks, RLS, both services containerized and verified with a clean `docker compose up --build`. Visual design is a separate, upcoming pass.
+Core functionality complete: auth, CRUD for projects/tasks, RLS, both services containerized and verified with a clean `docker compose up --build`. Visual design is done — a monochrome, editorial theme built around the Myth of Sisyphus, with a 404 page and disabled-empty-input states as the latest small polish pass.
