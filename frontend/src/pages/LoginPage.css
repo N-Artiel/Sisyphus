@@ -6,6 +6,7 @@
   justify-content: center;
   overflow: hidden;
   padding: var(--space-page);
+  background: var(--bg-deep);
 }
 
 .login-scene {
@@ -18,57 +19,63 @@
 
 .login-sun {
   position: absolute;
+  top: -55vh;
   left: 50%;
-  bottom: 18vh;
-  width: min(50vw, 640px);
-  height: min(50vw, 640px);
+  width: min(100vw, 1100px);
+  aspect-ratio: 1;
   transform: translateX(-50%);
   border-radius: 50%;
-  background: radial-gradient(circle, var(--ember-glow), transparent 70%);
-  filter: blur(4px);
-  animation: sunBreathe 10s ease-in-out infinite;
+  background: radial-gradient(
+    circle at 50% 42%,
+    #ffffff 0%,
+    #ffffff 48%,
+    #f4f1ea 62%,
+    rgba(244, 241, 234, 0.55) 78%,
+    rgba(244, 241, 234, 0) 100%
+  );
+  animation: sunBreathe 16s ease-in-out infinite;
 }
 
 @keyframes sunBreathe {
-  0%, 100% { opacity: 0.55; transform: translateX(-50%) scale(1); }
-  50%      { opacity: 0.85; transform: translateX(-50%) scale(1.06); }
+  0%, 100% { opacity: 0.92; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 1;    transform: translateX(-50%) scale(1.03); }
 }
 
-.ridge {
+.login-scrim {
   position: absolute;
-  left: -5%;
-  right: -5%;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 65% 55% at 50% 58%,
+    rgba(5, 4, 3, 0.94) 0%,
+    rgba(5, 4, 3, 0.7) 42%,
+    rgba(5, 4, 3, 0.2) 70%,
+    transparent 88%
+  );
+}
+
+.login-ridge {
+  position: absolute;
+  left: -6%;
+  right: -6%;
   bottom: -2%;
-  height: 42vh;
-  min-height: 220px;
-}
-.ridge-3 {
+  height: 40vh;
+  min-height: 210px;
   background: var(--bg-deep);
-  clip-path: polygon(0% 60%, 8% 40%, 18% 52%, 30% 30%, 42% 48%, 55% 22%, 68% 44%, 80% 34%, 92% 50%, 100% 38%, 100% 100%, 0% 100%);
-  opacity: 0.9;
-}
-.ridge-2 {
-  height: 32vh;
-  min-height: 170px;
-  background: #16130f;
-  clip-path: polygon(0% 70%, 10% 48%, 22% 60%, 33% 36%, 48% 58%, 60% 32%, 74% 54%, 86% 40%, 100% 58%, 100% 100%, 0% 100%);
-}
-.ridge-1 {
-  height: 22vh;
-  min-height: 120px;
-  background: var(--bg);
-  clip-path: polygon(0% 82%, 14% 55%, 26% 68%, 40% 42%, 50% 30%, 62% 50%, 76% 62%, 88% 48%, 100% 66%, 100% 100%, 0% 100%);
+  clip-path: polygon(
+    0% 64%, 9% 38%, 20% 55%, 33% 24%, 47% 52%,
+    58% 16%, 71% 46%, 84% 28%, 100% 50%, 100% 100%, 0% 100%
+  );
 }
 
 .login-boulder {
   position: absolute;
-  left: 48.5%;
-  bottom: 20vh;
+  left: 47.5%;
+  bottom: 21vh;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, var(--ember-bright), var(--ember) 45%, var(--ember-dim) 78%, #4a3116 100%);
-  box-shadow: 0 6px 16px -4px rgba(0,0,0,0.6);
+  background: var(--accent-bright);
+  box-shadow: 0 6px 16px -4px rgba(0,0,0,0.7);
   animation: boulderIdle 6s ease-in-out infinite;
 }
 @keyframes boulderIdle {
@@ -90,17 +97,16 @@
 .login-eyebrow {
   font-family: var(--mono);
   font-size: var(--fs-xs);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.2em;
   color: var(--text-faint);
 }
 
 .login-title {
-  font-size: var(--fs-3xl);
-  margin: 6px 0 18px;
-  background: linear-gradient(180deg, var(--text) 30%, var(--text-muted));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-size: clamp(3.2rem, 2rem + 7vw, 8rem);
+  line-height: 0.95;
+  margin: 10px 0 20px;
+  color: var(--text-bright);
+  text-shadow: 0 2px 40px rgba(0,0,0,0.5);
 }
 
 .login-quote {
@@ -127,13 +133,11 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background: rgba(28, 25, 23, 0.72);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid var(--border-soft);
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: clamp(22px, 4vw, 32px);
-  box-shadow: 0 30px 60px -30px rgba(0,0,0,0.6);
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,0.75);
 }
 
 .login-card h2 {
@@ -151,8 +155,8 @@
   padding: 4px;
   transition: color 0.2s;
 }
-.login-toggle:hover { color: var(--ember-bright); }
+.login-toggle:hover { color: var(--text); }
 
 @media (max-width: 520px) {
-  .login-title { font-size: var(--fs-2xl); }
+  .login-sun { top: -48vh; }
 }

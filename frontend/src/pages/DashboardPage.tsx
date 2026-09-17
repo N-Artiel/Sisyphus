@@ -95,7 +95,6 @@ export default function DashboardPage() {
               style={{ animationDelay: `${0.12 + i * 0.04}s` }}
             >
               <Link to={`/projects/${p.id}`}>
-                <span className="dash-card-peak" aria-hidden="true" />
                 <h3>{p.name}</h3>
                 <time className="dash-card-date">
                   {new Date(p.created_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}

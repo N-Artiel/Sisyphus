@@ -3,6 +3,8 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: clamp(28px, 5vw, 52px);
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .dash-wordmark {
@@ -32,36 +34,38 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
+  gap: 1px;
+  background: var(--border-soft);
+  border: 1px solid var(--border-soft);
 }
 
-.dash-card { position: relative; overflow: hidden; }
+.dash-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  border: none;
+  border-radius: 0;
+}
 .dash-card a {
   display: block;
-  padding: 22px 20px 20px;
+  padding: 26px 22px 22px;
   text-decoration: none;
   color: inherit;
   position: relative;
+  height: 100%;
 }
 .dash-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--ember-dim);
-  box-shadow: 0 16px 32px -20px rgba(0,0,0,0.6);
+  background: var(--surface);
 }
-
-.dash-card-peak {
-  position: absolute;
-  top: 0; right: 0;
-  width: 90px; height: 90px;
-  background: radial-gradient(circle at 100% 0%, var(--ember-soft), transparent 70%);
-  pointer-events: none;
+.dash-card:hover h3 {
+  color: var(--text-bright);
 }
 
 .dash-card h3 {
   font-size: var(--fs-md);
   font-weight: 500;
   margin-bottom: 10px;
-  padding-right: 40px;
+  transition: color 0.2s var(--ease-crisp);
 }
 
 .dash-card-date {

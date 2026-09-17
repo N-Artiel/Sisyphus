@@ -3,40 +3,38 @@
 :root {
   color-scheme: dark;
 
-  --bg: #121010;
-  --bg-deep: #0c0a09;
-  --surface: #1c1917;
-  --surface-2: #262220;
-  --surface-hover: #2c2724;
-  --border: #35302b;
-  --border-soft: #29241f;
+  --bg: #0a0908;
+  --bg-deep: #050403;
+  --surface: #141210;
+  --surface-2: #1d1a17;
+  --surface-hover: #242019;
+  --border: #322e29;
+  --border-soft: #221f1b;
 
-  --text: #e9e2d6;
-  --text-muted: #a89b88;
-  --text-faint: #6e6355;
+  --text: #f4f1ea;
+  --text-bright: #ffffff;
+  --text-muted: #a39b8d;
+  --text-faint: #665f54;
 
-  --ember: #c98a4b;
-  --ember-bright: #e3a765;
-  --ember-dim: #8a5c33;
-  --ember-soft: rgba(201, 138, 75, 0.13);
-  --ember-glow: rgba(224, 160, 100, 0.35);
-
-  --dusk: #5f7c82;
-  --dusk-soft: rgba(95, 124, 130, 0.16);
+  --accent: #f4f1ea;
+  --accent-bright: #ffffff;
+  --accent-dim: #c9c2b4;
+  --accent-soft: rgba(244, 241, 234, 0.08);
+  --accent-ring: rgba(244, 241, 234, 0.18);
 
   --danger: #b6543f;
   --danger-soft: rgba(182, 84, 63, 0.14);
 
-  --radius-lg: 20px;
-  --radius: 14px;
-  --radius-sm: 9px;
+  --radius-lg: 8px;
+  --radius: 6px;
+  --radius-sm: 3px;
 
   --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
   --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-fall: cubic-bezier(0.6, 0, 0.9, 0.4);
+  --ease-crisp: cubic-bezier(0.4, 0, 0.2, 1);
 
   --fs-xs: clamp(0.72rem, 0.69rem + 0.15vw, 0.8rem);
   --fs-sm: clamp(0.82rem, 0.78rem + 0.18vw, 0.9rem);
@@ -61,11 +59,6 @@ body {
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
-  background-image:
-    radial-gradient(ellipse 60% 45% at 20% -10%, var(--ember-soft), transparent 60%),
-    radial-gradient(ellipse 70% 50% at 100% 110%, rgba(95, 124, 130, 0.12), transparent 60%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -77,7 +70,7 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.045;
+  opacity: 0.04;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -101,7 +94,7 @@ h1, h2, h3 {
 p { margin: 0; color: var(--text-muted); }
 a { color: inherit; }
 
-::selection { background: var(--ember-dim); color: #fff; }
+::selection { background: var(--text); color: var(--bg); }
 
 /* ---------- layout ---------- */
 
@@ -132,39 +125,40 @@ a { color: inherit; }
   font-family: var(--sans);
   font-size: var(--fs-sm);
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
-  padding: 11px 20px;
+  padding: 12px 22px;
   cursor: pointer;
-  transition: transform 0.25s var(--ease-settle), box-shadow 0.25s var(--ease-settle), background 0.25s, border-color 0.25s, opacity 0.2s;
+  transition: transform 0.2s var(--ease-crisp), background 0.2s var(--ease-crisp), border-color 0.2s var(--ease-crisp), opacity 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 }
 .btn:active { transform: scale(0.97); }
-.btn:disabled { opacity: 0.55; cursor: default; transform: none; }
+.btn:disabled { opacity: 0.5; cursor: default; transform: none; }
 
 .btn-primary {
-  background: linear-gradient(160deg, var(--ember-bright), var(--ember-dim));
-  color: #1a1310;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 8px 20px -10px var(--ember-glow);
+  background: var(--accent-bright);
+  color: var(--bg-deep);
 }
 .btn-primary:hover:not(:disabled) {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.2) inset, 0 10px 28px -8px var(--ember-glow);
-  transform: translateY(-1px);
+  background: var(--accent-dim);
 }
 
 .btn-ghost {
   background: transparent;
   color: var(--text-muted);
   border-color: var(--border);
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: normal;
 }
 .btn-ghost:hover:not(:disabled) {
   color: var(--text);
   border-color: var(--text-faint);
-  background: var(--surface-2);
 }
 
 .btn-icon {
@@ -186,14 +180,14 @@ a { color: inherit; }
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  transition: border-color 0.2s var(--ease-crisp), box-shadow 0.2s var(--ease-crisp), background 0.2s;
   width: 100%;
 }
 .field::placeholder { color: var(--text-faint); }
 .field:focus {
   outline: none;
-  border-color: var(--ember-dim);
-  box-shadow: 0 0 0 3px var(--ember-soft);
+  border-color: var(--text-faint);
+  box-shadow: 0 0 0 3px var(--accent-soft);
   background: var(--surface);
 }
 
@@ -201,7 +195,7 @@ a { color: inherit; }
   background: var(--surface);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius);
-  transition: transform 0.35s var(--ease-settle), border-color 0.35s, box-shadow 0.35s;
+  transition: transform 0.3s var(--ease-crisp), border-color 0.3s var(--ease-crisp), box-shadow 0.3s var(--ease-crisp);
 }
 
 .error-banner {
@@ -213,12 +207,12 @@ a { color: inherit; }
   padding: 10px 14px;
 }
 
-/* ---------- boulder loader ---------- */
+/* ---------- boulder ---------- */
 
 .boulder {
   border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, var(--ember-bright), var(--ember) 45%, var(--ember-dim) 78%, #4a3116 100%);
-  box-shadow: inset -4px -6px 10px rgba(0,0,0,0.35), inset 3px 3px 6px rgba(255,255,255,0.15);
+  background: var(--accent-bright);
+  box-shadow: inset -3px -4px 8px rgba(0,0,0,0.4), inset 2px 2px 4px rgba(255,255,255,0.5);
 }
 
 .boulder-loader {
@@ -254,7 +248,7 @@ a { color: inherit; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.rise-in { animation: riseIn 0.7s var(--ease-settle) both; }
+.rise-in { animation: riseIn 0.6s var(--ease-settle) both; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

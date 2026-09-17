@@ -3,10 +3,10 @@
   font-size: var(--fs-sm);
   color: var(--text-faint);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s var(--ease-crisp);
   margin-bottom: 20px;
 }
-.proj-back:hover { color: var(--ember-bright); }
+.proj-back:hover { color: var(--text); }
 
 .proj-intro { margin-bottom: 8px; }
 .proj-intro h1 { font-size: var(--fs-2xl); margin-bottom: 16px; }
@@ -21,26 +21,24 @@
   position: relative;
   flex: 1;
   max-width: 320px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--surface-2);
+  height: 2px;
+  background: var(--border);
   overflow: visible;
 }
 .proj-progress-fill {
   height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--ember-dim), var(--ember-bright));
+  background: var(--accent-bright);
   transition: width 0.6s var(--ease-settle);
 }
 .proj-progress-boulder {
   position: absolute;
   top: 50%;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle at 32% 28%, var(--ember-bright), var(--ember) 45%, var(--ember-dim) 78%, #4a3116 100%);
-  box-shadow: 0 3px 8px -2px rgba(0,0,0,0.6);
+  background: var(--accent-bright);
+  box-shadow: 0 3px 8px -2px rgba(0,0,0,0.7);
   transition: left 0.6s var(--ease-settle);
 }
 .proj-progress span {
@@ -63,15 +61,19 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .proj-item {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 16px;
+  padding: 16px 4px;
+  border: none;
+  border-bottom: 1px solid var(--border-soft);
+  border-radius: 0;
+  background: transparent;
 }
+.proj-item:hover { background: var(--surface); }
 .proj-item .btn-icon {
   opacity: 0;
   transition: opacity 0.2s;
@@ -84,20 +86,20 @@
 
 .proj-stone {
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  border: 2px solid var(--text-faint);
+  border: 1.5px solid var(--text-faint);
   background: transparent;
   cursor: pointer;
   padding: 0;
-  transition: transform 0.3s var(--ease-settle), border-color 0.3s, background 0.3s;
+  transition: transform 0.25s var(--ease-settle), border-color 0.2s var(--ease-crisp), background 0.2s var(--ease-crisp);
 }
-.proj-stone:hover { border-color: var(--ember-bright); }
+.proj-stone:hover { border-color: var(--text); }
 
 .proj-item.is-done .proj-stone {
-  border-color: var(--ember-dim);
-  background: radial-gradient(circle at 32% 28%, var(--ember-bright), var(--ember) 45%, var(--ember-dim) 78%, #4a3116 100%);
+  border-color: var(--accent-bright);
+  background: var(--accent-bright);
   animation: settleStone 0.4s var(--ease-settle);
 }
 @keyframes settleStone {

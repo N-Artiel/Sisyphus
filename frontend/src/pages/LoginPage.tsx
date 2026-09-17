@@ -35,9 +35,8 @@ export default function LoginPage() {
     <div className="login">
       <div className="login-scene" aria-hidden="true">
         <div className="login-sun" />
-        <div className="ridge ridge-3" />
-        <div className="ridge ridge-2" />
-        <div className="ridge ridge-1" />
+        <div className="login-scrim" />
+        <div className="login-ridge" />
         <div className="login-boulder" />
       </div>
 
